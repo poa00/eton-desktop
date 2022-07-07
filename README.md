@@ -2,10 +2,15 @@
 
 > A simple note-taking compose desktop project with MVVM, Dagger, Decompose and more
 
+This sample shows a simple app packaged with [Hydraulic Conveyor](https://www.hydraulic.software).
+
+[⤵️ Download from here](https://downloads.hydraulic.dev/eton-sample/download.html)
+
+Based on [the original project by Vivek Sharma](https://github.com/V9vek/Eton-Desktop).
+
 ### ✨ Demo
 
 https://user-images.githubusercontent.com/40730402/150338329-08f10ad5-beb8-409d-b607-c3fb305f2d0f.mp4
-
 
 ## What's included?
 

@@ -7,6 +7,7 @@ plugins {
     kotlin("jvm") version kotlinVersion
     kotlin("kapt") version kotlinVersion
     id("org.jetbrains.compose") version "1.1.1"
+    id("dev.hydraulic.conveyor") version "1.0.1"
 }
 
 group = "com.eton"
