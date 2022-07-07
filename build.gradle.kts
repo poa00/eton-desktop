@@ -10,8 +10,14 @@ plugins {
     id("dev.hydraulic.conveyor") version "1.0.1"
 }
 
-group = "com.eton"
+group = "io.github.hydraulic-software.eton-desktop"
 version = "1.0.0"
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
 
 repositories {
     jcenter()
@@ -94,7 +100,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "eton"
-            packageVersion = "1.0.0"
+            packageVersion = project.version.toString()
 
             val iconsRoot = project.file("src/main/resources/drawables")
 
