@@ -1,5 +1,4 @@
 import org.jetbrains.compose.compose
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -11,7 +10,7 @@ plugins {
 }
 
 group = "io.github.hydraulic-software.eton-desktop"
-version = "1.0.0"
+version = "2.0.0"
 
 java {
     toolchain {
@@ -97,25 +96,5 @@ tasks.withType<KotlinCompile>() {
 compose.desktop {
     application {
         mainClass = "com.eton.AppKt"
-        nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "eton"
-            packageVersion = project.version.toString()
-
-            val iconsRoot = project.file("src/main/resources/drawables")
-
-            linux {
-                iconFile.set(iconsRoot.resolve("launcher_icons/linux.png"))
-            }
-
-            windows {
-                iconFile.set(iconsRoot.resolve("launcher_icons/windows.ico"))
-            }
-
-            macOS {
-                iconFile.set(iconsRoot.resolve("launcher_icons/macos.icns"))
-            }
-
-        }
     }
 }
