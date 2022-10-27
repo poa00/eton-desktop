@@ -35,10 +35,10 @@ class App(
  * The magic begins here
  */
 fun main() {
-    val version = System.getProperty("app.version") ?: "1.0.0"
+    val version = System.getProperty("app.version") ?: "Dev"
     val appArgs = AppArgs(
-        appName = "Eton", // To show on title bar
-        version = "v$version", // To show on title inside brackets
+        appName = "Eton", // To show on the title bar
+        version = version, // To show on the title bar.
         versionCode = 100 // To compare with the latest version code (in case if you want to prompt update)
     )
 

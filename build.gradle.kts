@@ -2,20 +2,24 @@ import org.jetbrains.compose.compose
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    val kotlinVersion = "1.6.10"
+    val kotlinVersion = "1.7.10"
     kotlin("jvm") version kotlinVersion
     kotlin("kapt") version kotlinVersion
-    id("org.jetbrains.compose") version "1.1.1"
-    id("dev.hydraulic.conveyor") version "1.0.1"
+    id("org.jetbrains.compose") version "1.2.0"
+    id("dev.hydraulic.conveyor") version "1.2"
 }
 
 group = "io.github.hydraulic-software.eton-desktop"
-version = "2.0.0"
+version = "2.2.0"
 
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(17))
     }
+}
+
+tasks.withType<KotlinCompile>() {
+    kotlinOptions.jvmTarget = "17"
 }
 
 repositories {
@@ -33,7 +37,7 @@ configurations.all {
     }
 }
 
-val daggerVersion by extra("2.39.1")
+val daggerVersion by extra("2.44")
 
 dependencies {
     linuxAmd64(compose.desktop.linux_x64)
@@ -87,10 +91,6 @@ dependencies {
 
     // JUnit : JUnit is a unit testing framework for Java, created by Erich Gamma and Kent Beck.
     testImplementation(kotlin("test-junit5"))
-}
-
-tasks.withType<KotlinCompile>() {
-    kotlinOptions.jvmTarget = "11"
 }
 
 compose.desktop {
