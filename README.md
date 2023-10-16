@@ -4,7 +4,7 @@
 
 This sample shows a simple app packaged with [Hydraulic Conveyor](https://www.hydraulic.software).
 
-[⤵️ Download from here](https://downloads.hydraulic.dev/eton-sample/download.html)
+[⤵️ Download from here](https://hydraulic-software.github.io/eton-desktop/download.html)
 
 Based on [the original project by Vivek Sharma](https://github.com/V9vek/Eton-Desktop).
 
