@@ -1,11 +1,10 @@
 package com.eton.ui.feature.notes
 
 import androidx.compose.animation.*
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyVerticalGrid
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FilterAlt
@@ -25,7 +24,6 @@ import com.eton.ui.feature.notes.components.OrderSection
 import com.eton.ui.feature.notes.util.FabItem
 import com.eton.ui.feature.notes.util.NotesEvent
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun NotesScreen(
     viewModel: NotesViewModel,
@@ -106,7 +104,7 @@ fun NotesScreen(
 
                 // Notes List
                 LazyVerticalGrid(
-                    cells = GridCells.Fixed(count = 3),
+                    columns = GridCells.Fixed(count = 3),
                     modifier = Modifier
                         .fillMaxSize()
                         .animateContentSize()

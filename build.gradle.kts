@@ -1,16 +1,26 @@
 import org.jetbrains.compose.compose
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    val kotlinVersion = "1.6.10"
+    val kotlinVersion = "1.7.10"
     kotlin("jvm") version kotlinVersion
     kotlin("kapt") version kotlinVersion
-    id("org.jetbrains.compose") version "1.1.1"
+    id("org.jetbrains.compose") version "1.2.0"
+    id("dev.hydraulic.conveyor") version "1.2"
 }
 
-group = "com.eton"
-version = "1.0.0"
+group = "io.github.hydraulic-software.eton-desktop"
+version = "2.3.0"
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
+
+tasks.withType<KotlinCompile>() {
+    kotlinOptions.jvmTarget = "17"
+}
 
 repositories {
     jcenter()
@@ -20,10 +30,13 @@ repositories {
     maven { url = uri("https://maven.pkg.jetbrains.space/public/p/compose/dev") }
 }
 
-val daggerVersion by extra("2.39.1")
+val daggerVersion by extra("2.44")
 
 dependencies {
-    implementation(compose.desktop.currentOs)
+    linuxAmd64(compose.desktop.linux_x64)
+    macAmd64(compose.desktop.macos_x64)
+    macAarch64(compose.desktop.macos_arm64)
+    windowsAmd64(compose.desktop.windows_x64)
 
     // Module dependencies
     implementation(project(":data"))
@@ -73,32 +86,28 @@ dependencies {
     testImplementation(kotlin("test-junit5"))
 }
 
-tasks.withType<KotlinCompile>() {
-    kotlinOptions.jvmTarget = "11"
-}
-
 compose.desktop {
     application {
         mainClass = "com.eton.AppKt"
-        nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "eton"
-            packageVersion = "1.0.0"
-
-            val iconsRoot = project.file("src/main/resources/drawables")
-
-            linux {
-                iconFile.set(iconsRoot.resolve("launcher_icons/linux.png"))
-            }
-
-            windows {
-                iconFile.set(iconsRoot.resolve("launcher_icons/windows.ico"))
-            }
-
-            macOS {
-                iconFile.set(iconsRoot.resolve("launcher_icons/macos.icns"))
-            }
-
-        }
     }
 }
+
+// region Work around temporary Compose bugs.
+configurations.all {
+    attributes {
+        // https://github.com/JetBrains/compose-jb/issues/1404#issuecomment-1146894731
+        attribute(Attribute.of("ui", String::class.java), "awt")
+    }
+}
+
+dependencies {
+    // Force override the Kotlin stdlib version used by Compose to 1.7 in the machine specific configurations, as otherwise we can end up
+    // with a mix of 1.6 and 1.7 on our classpath. This is the same logic as is applied to the regular Compose configurations normally.
+    val v = "1.7.10"
+    for (m in setOf("linuxAmd64", "macAmd64", "macAarch64", "windowsAmd64")) {
+        m("org.jetbrains.kotlin:kotlin-stdlib:$v")
+        m("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$v")
+        m("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$v")
+    }
+}
+// endregion
